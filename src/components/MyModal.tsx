@@ -1,5 +1,5 @@
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
-import BlockEditor from "./BlockEditor";
+import TiptapEditor from "./TiptapEditor";
 
 interface Props {
   isOpen: boolean;
@@ -21,9 +21,8 @@ export default function MyModal({ isOpen = false, onClose }: Props) {
                 leaveTo="opacity-0 transform-[scale(95%)]"
               >
                 <DialogPanel className="w-full h-full rounded-xl bg-white p-6 backdrop-blur-2xl">
-                  <div></div>
                   <div>
-                    <BlockEditor />
+                    <TiptapEditor />
                   </div>
                 </DialogPanel>
               </TransitionChild>
