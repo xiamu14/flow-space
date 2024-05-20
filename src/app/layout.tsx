@@ -16,6 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>InspireBox-思维与知识的宝盒</title>
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
