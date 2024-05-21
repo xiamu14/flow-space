@@ -79,6 +79,10 @@
     outline: none;
 }
 
+.react-flow__attribution {
+    display: none;
+}
+
 /* Basic editor styles */
 .tiptap {
     > * + * {
