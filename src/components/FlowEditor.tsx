@@ -1,3 +1,4 @@
+"use client";
 import React, { useCallback, useMemo } from "react";
 import ReactFlow, {
   Background,
@@ -14,6 +15,8 @@ import MyNoteNode from "./MyNoteNode";
 import { Button } from "./ui/button";
 import SelectType from "./SelectType";
 import { openModal } from "@/dataflow/myModal";
+import useClient from "@/utils/useClient";
+import { setActiveSidebarItem } from "@/dataflow/sidebar";
 
 const initialNodes = [
   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
@@ -21,7 +24,11 @@ const initialNodes = [
 ];
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
-export default function FlowEditor() {
+export default function FlowEditor({ id }: { id: string }) {
+  useClient(() => {
+    setActiveSidebarItem(id);
+  });
+
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 

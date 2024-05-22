@@ -1,8 +1,8 @@
 import { proxy } from "valtio";
 export const active = proxy<{
-  item: {
-    id: string;
-    label: string;
-    path: string;
-  };
-}>(undefined);
+  key: string | null;
+}>({ key: null });
+
+export function setActiveSidebarItem(key: string) {
+  active.key = key;
+}

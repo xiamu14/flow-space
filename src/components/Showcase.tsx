@@ -1,12 +1,14 @@
 /**
  * showcase box
  */
-
+"use client";
 import { openModal } from "@/dataflow/myModal";
 import Divider from "./Divider";
 import { Button } from "./ui/button";
 import { ArrowDownUp, Grid2X2, List, ListFilter, Search } from "lucide-react";
 import Card from "./Card";
+import useClient from "@/utils/useClient";
+import { setActiveSidebarItem } from "@/dataflow/sidebar";
 const data = new Array(10).fill(0).map(() => {
   return {
     title: "场景与相机",
@@ -16,7 +18,10 @@ const data = new Array(10).fill(0).map(() => {
     tags: ["Web3d", "three.js"],
   };
 });
-export default function Showcase() {
+export default function Showcase({ id }: { id: string }) {
+  useClient(() => {
+    setActiveSidebarItem(id);
+  });
   return (
     <div className="flex w-full flex-col gap-[20px] p-[20px]">
       <section className="w-full flex justify-between items-center">

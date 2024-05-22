@@ -1,6 +1,6 @@
-import { ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import SidebarItem from "./SidebarItem";
+import Link from "next/link";
 
 export default function Sidebar() {
   return (
@@ -13,7 +13,9 @@ export default function Sidebar() {
           </Button>
         </div>
         <div className="flex flex-col gap-2 px-[6px]">
-          <SidebarItem>Space 1</SidebarItem>
+          <Link href="/space/1">
+            <SidebarItem keyName="1">Space 1</SidebarItem>
+          </Link>
         </div>
       </section>
 
@@ -26,7 +28,11 @@ export default function Sidebar() {
         </div>
         <div className="flex flex-col gap-2 px-[6px]">
           {["Links", "Tags", "Cards", "Tasks", "Files", "Papers"].map((item, index) => {
-            return <SidebarItem key={index}>{item}</SidebarItem>;
+            return (
+              <Link key={index} href={`/object/object${index}`}>
+                <SidebarItem keyName={`object${index}`}>{item}</SidebarItem>
+              </Link>
+            );
           })}
         </div>
       </section>
