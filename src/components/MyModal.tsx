@@ -24,9 +24,7 @@ export default function MyModal() {
                 leaveTo="opacity-0 transform-[scale(95%)]"
               >
                 <DialogPanel className="w-full max-w-[900px] h-full rounded-xl bg-white p-6 backdrop-blur-2xl">
-                  <div>
-                    <TiptapEditor />
-                  </div>
+                  <TiptapEditor />
                 </DialogPanel>
               </TransitionChild>
             </div>

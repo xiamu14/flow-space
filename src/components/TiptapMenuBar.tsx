@@ -1,14 +1,16 @@
 import React from "react";
 import { Editor } from "@tiptap/react";
 import { Bold, Code } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Props {
   editor: Editor;
+  boxClassName?: string;
 }
 
-const TiptapMenuBar = ({ editor }: Props) => {
+const TiptapMenuBar = ({ editor, boxClassName }: Props) => {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className={cn("flex flex-wrap gap-2", boxClassName)}>
       <button
         onClick={() => {
           editor.chain().focus().toggleBold().run();
