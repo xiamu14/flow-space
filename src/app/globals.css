@@ -70,6 +70,7 @@
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
     }
@@ -87,10 +88,18 @@
     background-color: #a5a6f6 !important;
 }
 
+.react-flow__edge-path {
+    stroke: #eeeff6 !important;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+    stroke: #5c5ee7 !important;
+}
+
 /* Basic editor styles */
 .tiptap {
     > * + * {
-        margin-top: 0.75em;
+        margin-top: 0.5em;
     }
 
     pre {
@@ -158,6 +167,26 @@
         .hljs-strong {
             font-weight: 700;
         }
+    }
+}
+
+.tiptap {
+    ul,
+    ol {
+        margin-left: 12px;
+        li {
+            margin-left: 6px;
+        }
+
+        li p {
+            display: inline;
+        }
+    }
+    ul {
+        list-style: disc;
+    }
+    ol {
+        list-style: decimal;
     }
 }
 

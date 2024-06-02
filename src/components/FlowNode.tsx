@@ -1,8 +1,14 @@
 import { cn } from "@/lib/utils";
-import { useMemo } from "react";
+import { PropsWithChildren, useMemo } from "react";
 import { Handle, Position } from "reactflow";
+import { useLongPress } from "@uidotdev/usehooks";
+import Divider from "./Divider";
+import { GripVertical } from "lucide-react";
+import { openModal } from "@/dataflow/myModal";
+
 type NodeType = "Title" | "SubTitle" | "End" | "link" | "Paragraph" | "Code" | "Picture";
 type NodeData = { nodeType: NodeType; value?: string };
+
 export default function FlowNode(options?: { data: NodeData }) {
   const nodeData = useMemo(() => {
     return options?.data ?? { nodeType: "Paragraph" as NodeType };
@@ -16,18 +22,27 @@ export default function FlowNode(options?: { data: NodeData }) {
         return <TitleNode {...nodeData} />;
       case "Picture":
         return <ImageNode />;
-      case "Code":
-        return <CodeNode />;
       case "Paragraph":
         return <ParagraphNode />;
       default:
-        return null;
+        return <TextNode {...nodeData} />;
     }
   }, [nodeType, nodeData]);
   return (
     <>
       {nodeType !== "Title" ? <Handle type="target" position={Position.Top} /> : null}
-      <div className="border-2 border-solid border-#333 p-2 bg-white w-fit max-w-[200px] min-w-[100px] max-h-[300px] min-h-[40px] flex flex-wrap overflow-y-auto rounded-sm">
+      <div
+        className="border-[1px] border-solid border-[#f0f0f5] p-[4px] bg-white w-fit max-w-[200px] min-w-[100px] max-h-[300px] min-h-[30px] flex flex-wrap overflow-y-auto rounded-[2px] text-[#595964]"
+        style={{
+          boxShadow: `
+            0.8px 1.3px 2.2px rgba(0, 0, 0, 0.002),
+            1.9px 3.2px 5.3px rgba(0, 0, 0, 0.001),
+            3.6px 6px 10px rgba(0, 0, 0, 0.002),
+            6.5px 10.7px 17.9px rgba(0, 0, 0, 0.007),
+            12.1px 20.1px 33.4px rgba(0, 0, 0, 0.016),
+            29px 48px 80px rgba(0, 0, 0, 0.03)`,
+        }}
+      >
         {NodeContent}
       </div>
       {nodeType !== "End" ? <Handle type="source" position={Position.Bottom} id="a" /> : null}
@@ -38,8 +53,8 @@ export default function FlowNode(options?: { data: NodeData }) {
 function TitleNode({ nodeType, value }: NodeData) {
   return (
     <div
-      className={cn("text-[18px] font-semibold w-full text-center", {
-        "text-[18px]": nodeType === "Title",
+      className={cn("font-semibold w-full text-center h-full leading-none", {
+        "text-[16px]": nodeType === "Title",
         "text-[14px]": nodeType === "SubTitle",
       })}
     >
@@ -59,50 +74,36 @@ function ImageNode() {
   );
 }
 
-function CodeNode() {
-  const code = `
-    const std = @import("std");
-    const parseInt = std.fmt.parseInt;
-
-    test "parse integers" {
-        const input = "123 67 89,99";
-        const ally = std.testing.allocator;
-
-        var list = std.ArrayList(u32).init(ally);
-        // Ensure the list is freed at scope exit.
-        // Try commenting out this line!
-        defer list.deinit();
-
-        var it = std.mem.tokenizeAny(u8, input, " ,");
-        while (it.next()) |num| {
-            const n = try parseInt(u32, num, 10);
-            try list.append(n);
-        }
-
-        const expected = [_]u32{ 123, 67, 89, 99 };
-
-        for (expected, list.items) |exp, actual| {
-            try std.testing.expectEqual(exp, actual);
-        }
-    }
-    `;
+function ParagraphNode() {
   return (
-    <pre
-      onClick={() => {
-        console.log("21");
-      }}
-      className="cursor-default"
-    >
-      <code>{code}</code>
-    </pre>
+    <NodeContainer>
+      <p
+        className="text-[12px] cursor-pointer"
+        onClick={(event) => {
+          event.stopPropagation();
+          openModal("paragraph");
+        }}
+      >
+        在three.js中，要渲染物体到网页中，我们需要3个组件：场景scene、相机camera
+        和渲染器renderer。有了这三样东西，才能将物体渲染到网页中去。
+      </p>
+    </NodeContainer>
   );
 }
 
-function ParagraphNode() {
+function TextNode({ value }: { value?: string }) {
+  return <p className="text-[12px] w-full text-center">{value}</p>;
+}
+
+function NodeContainer({ children }: PropsWithChildren<{}>) {
   return (
-    <p>
-      在three.js中，要渲染物体到网页中，我们需要3个组件：场景scene、相机camera
-      和渲染器renderer。有了这三样东西，才能将物体渲染到网页中去。
-    </p>
+    <div className="flex flex-col gap-[6px] p-[2px]">
+      <div className="flex items-center justify-between cursor-pointer">
+        <p className="text-[14px]">内容索引#1</p>
+        <GripVertical color="#595964" size={10} />
+      </div>
+      <Divider />
+      {children}
+    </div>
   );
 }

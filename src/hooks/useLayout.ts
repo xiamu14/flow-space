@@ -1,6 +1,6 @@
 import { useReactFlow, useNodesInitialized } from "reactflow";
 import { useCallback, useEffect } from "react";
-import { getLayoutedElements } from "@/module/FlowLayout";
+import { getLayoutedElements } from "@/module/flowLayout";
 import { reactFlowContext } from "@/dataflow/reactFlowContext";
 import logStyle from "@/fnStore/utils/logStyle";
 
