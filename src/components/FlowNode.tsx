@@ -54,7 +54,7 @@ function ImageNode() {
     <img
       alt=""
       src="https://plus.unsplash.com/premium_photo-1681400699241-834781696dc6?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDE2fENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D"
-      className="w-[120px] object-cover"
+      className="w-[120px] h-[120px] object-cover"
     />
   );
 }

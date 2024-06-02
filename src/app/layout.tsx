@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "FlowSpace",
-  description: "让知识流转起来的空间",
+  description: "用可视化工作空间释放你的无限潜力",
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>FlowSpace-流动的记录空间</title>
+        <title>FlowSpace-可视化工作空间</title>
       </head>
       <body>{children}</body>
     </html>
